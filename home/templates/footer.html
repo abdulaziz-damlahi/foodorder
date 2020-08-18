@@ -1,0 +1,49 @@
+{% extends 'homebase.html' %}
+{% load static %}
+
+{%block content %}
+{% load mptt_tags %}
+<!-- Start Footer -->
+	<footer class="footer-area bg-f">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-5 col-md-6">
+					<h3>About Us</h3>
+					<p>{{ setting.aboutus | safe }}</p>
+				</div>
+				<div class="col-lg-5 col-md-6">
+					<h3>Contact information</h3>
+					<p class="lead">{{ setting.contact | safe }}</p>
+					<p class="lead"><a href="#">{{ setting.Phone | safe }}</a></p>
+					<p><a href="#">{{ setting.Email | safe }}</a></p>
+				</div>
+
+					<ul class="list-inline f-social">
+                        <li class="list-inline-item"><a href="https://www.facebook.com/abood.damlakhi" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+						<li class="list-inline-item"><a href="https://www.instagram.com/abood.arts/" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+						<li class="list-inline-item"><a href="https://twitter.com/abood_damlakhi" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+						<li class="list-inline-item"><<a href="https://www.youtube.com/channel/UCC2F8pH4RBNRaDIld4NsvEQ?view_as=subscriber" target="_blank"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="copyright">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<p class="company-name">All Rights Reserved. &copy; 2020 <a href="#">{{ setting.title | safe }}</a>
+					</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</footer>
+	<!-- End Footer -->
+
+	<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+
+{%endblock%}
+
+{% block javascripts %}{% include "javascript.html" %}{% endblock %}

@@ -1,0 +1,146 @@
+{% extends 'homebase.html' %}
+{% load static %}
+{% load mptt_tags %}
+{% load i18n %}
+{% block header %}{% include "header.html" %}{% endblock %}
+{% block content %}
+
+    {% block title %}product deatils - {{ product.title }} {% endblock %}
+    {% block keywords %}  {{ product.keywords }} {% endblock %}
+    {% block description %}  {{ product.description }} {% endblock %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <!-- BREADCRUMB -->
+    <div class="all-page-title page-breadcrumb">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>product deatils </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="bcontainer">
+
+        <div class="col-md-4">
+            <img src="{{ product.image.url }}" height="300px">
+        </div>
+
+        <div class="col-md-4">
+
+            <!-- Product Description -->
+            <div class="bproduct-description">
+                <a href="/">Home </a><a>/</a>
+                <a href="/category/{{ product.category.id }}/{{ product.category.slug }}/">{{ product.category.title }}</a>
+                <a>/</a><a>{{ product.title }} </a>
+                </li>
+                <li>
+                    <h3>resturant</h3>
+                    <h3><span>{{ product.resturant }}</span></h3>
+                    <h3>description</h3>
+                    <p>{{ product.description }}</p>
+            </div>
+
+            <!-- Product Configuration -->
+            <div class="bproduct-configuration">
+
+                <!-- Product Color -->
+
+
+                <!-- Cable Configuration -->
+                <div class="bcable-config">
+                    <h3>details</h3>
+                    <span>{{ product.detail | safe }}</span>
+
+
+
+
+                </div>
+            </div>
+
+            <!-- Product Pricing -->
+            <div class="bproduct-price">
+             <form action="/order/addtoshopcart/{{ product.id }}" method="post"  id="addchart-form">
+                                    {% csrf_token %}
+                                    <div id="SelectedProduct">
+                                        <p><strong>Availability:</strong> {% if product.amount > 0  %} In Stock {% else %} Out of Stock {% endif %}</p>
+                                        <h3 class="product-price">{{ product.price }}</h3>
+                                        <div class="qty-input">
+                                            <span class="text-uppercase">QTY: </span>
+                                            <input class="input" name="quantity" type="number" value="1" min="1" max="{{ product.amount }}">
+                                            <button type="submit" {% if product.amount < 1  %} disabled {% endif %} class="bcart-btn add-to-cart">
+                                                <i class="fa fa-shopping-cart"></i> Add to Cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <h4 class="text-uppercase">Write Your Review</h4>
+            {% if messages %}
+                {% for message in massages %}
+
+                    <tr>
+                    <tr>
+                    <tr>
+                    <div class="alert alert-{{ message.tags }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <form class="review-form" action="/product/addcomment/{{ product.id }}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input name="subject" class="input" type="text" placeholder="Your subject"/>
+                </div>
+                <div class="form-group">
+                    <textarea name="comment" class="input" placeholder="Your review"></textarea>
+                </div>
+                <div class="form-group">
+                    <div class="input-rating">
+                        <strong class="text-uppercase">Your Rating: </strong>
+                        <div class="stars">
+                            <input type="radio" id="star5" name="rate" value="5"/><label
+                                for="star5"></label>
+                            <input type="radio" id="star4" name="rate" value="4"/><label
+                                for="star4"></label>
+                            <input type="radio" id="star3" name="rate" value="3"/><label
+                                for="star3"></label>
+                            <input type="radio" id="star2" name="rate" value="2"/><label
+                                for="star2"></label>
+                            <input type="radio" id="star1" name="rate" value="1"/><label
+                                for="star1"></label>
+                        </div>
+                    </div>
+                </div>
+                {% if user.id is not None %}
+                    <button class="primary-btn">Submit</button>
+                {% else %}
+                    log in to post review
+                {% endif %}
+            </form>
+        </div>
+    </main>
+
+
+
+{% endblock %}
+{% block footer %}{% include "footer.html" %}{% endblock %}
+
+{% block javascripts %}{% include "javascript.html" %}{% endblock %}

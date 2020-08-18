@@ -1,0 +1,99 @@
+{% extends 'homebase.html' %}
+{% load static %}
+{% load mptt_tags %}
+{% block header %}{% include "header.html" %}{% endblock %}
+{% block content %}
+
+    {% block title %}  {{ setting.title }} {% endblock %}
+    {% block keywords %}  {{ setting.keywords }} {% endblock %}
+    {% block description %}  {{ setting.description }} {% endblock %}
+    <!-- Start header -->
+
+    <div id="breadcrumb">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li><a href="/">Home</a></li>
+                <li class="active"> about us</li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+
+                </div>
+                <!-- /ASIDE -->
+
+                <!-- MAIN -->
+                <div id="main" class="col-md-12">
+
+                    <div id="store">
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+
+                                        <h3 class="title">Product List</h3>
+                                    </div>
+                                    <table class="shopping-cart-table table">
+                                        <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th></th>
+                                            <th class="text-center">Price</th>
+                                            <th class="text-center">Quantity</th>
+
+                                            <th class="text-right"></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        {% for rs in products %}
+                                            <tr>
+                                                <td class="thumb"><a href="/order/addtoshopcart/{{ rs.id }}">
+                                                    <img src="{{ rs.image.url }}" alt="" style="height: 100px">
+                                                </a></td>
+                                                <td class="details"><a
+                                                        href="/product/{{ rs.id }}/{{ rs.slug }}">{{ rs.title }}</a>
+                                                </td>
+                                                <td class="price text-center"><strong>{{ rs.price }}</strong><br>
+
+                                                </td>
+                                                <td class="qty text-center"><input class="input" type="number"
+                                                                                   value="1"></td>
+                                                <td class="text-right"><a href="/order/addtoshopcart/{{ rs.id }}"
+                                                                          class="nav-link"><i
+                                                        class="fa fa-shopping-cart"></i> add to cart </a></td>
+
+                                            </tr>
+                                        {% endfor %}
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+
+
+
+                    </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block footer %}{% include "footer.html" %}{% endblock %}
+

@@ -1,0 +1,179 @@
+{% load static %}
+{% load i18n %}
+{% load mptt_tags %}
+{% block content %}
+    {% block javascripts %}{% include "javascript.html" %}{% endblock %}
+
+    <!-- Start header -->
+    <header class="top-navbar" color="green">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" >
+            <div class="container" background-color="white">
+
+                <a class="navbar-brand" href="/home/">
+
+                    <span><b>WELCOME TO</b></span>
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}" role="alert">
+                                {{ message }}
+                            </div>
+
+                        {% endfor %}
+                    {% endif %}
+
+
+
+            <img src="{{ setting.icon.url }}" class="navbar-brand" href="/home/"  height="110" alt=""/>
+                  </a>
+                <script>
+                    $(function () {
+                        $("#query").autocomplete({
+                            source: "/auto_search/",
+                            select: function (event, ui) { //item selected
+                                AutoCompleteSelectHandler(event, ui)
+                            },
+                            minLength: 2,
+                        });
+                    });
+
+                    function AutoCompleteSelectHandler(event, ui) {
+                        var selectedObj = ui.item;
+                    }
+                </script>
+
+                <div class="header-search">
+                    <form action="/search/" method="post">
+                        {% csrf_token %}
+                        <input id="query" class="input" name="query" class="input search-input" type="text"
+                               placeholder="Enter your keyword">
+                        <select name="catid" class="input search-categories">
+                            <option value="0">All Categories</option>
+                            {% load mptt_tags %}
+
+                            {% recursetree category %}
+                                {% if node.is_leaf_node %}
+                                    <option value="{{ node.id }}">{{ node.title }}</option>
+                                {% endif %}
+                                {% if not node.is_leaf_node %}
+                                    <optgroup label="{{ node.title }}">
+                                        {{ children }}
+                                    </optgroup>
+                                {% endif %}
+                            {% endrecursetree %}
+                        </select>
+                        <button class="bcart-btn"><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
+
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-rs-food"
+                        aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbars-rs-food">
+
+
+                    <ul class="navbar-nav ml-auto">
+
+
+
+                        <li class="nav-item"><a class="nav-link " href="/home/">Home</a></li>
+
+                        <li class="nav-item dropdown">
+
+
+                            <a class="nav-link  dropdown-toggle" href="#" id="dropdown-a"
+                               data-toggle="dropdown">Category</a>
+
+
+                            <div class="dropdown-menu" aria-labelledby="dropdown-a">
+
+
+                                {% load mptt_tags %}
+
+                                <ul>
+                                    {% recursetree category %}
+                                        <li>
+
+
+                                            <a href="/category/{{ node.id }}/{{ node.slug }}" class="text-black-50"
+                                                    {% if not node.is_leaf_node %} data-toggle="dropdown"
+                                               aria-expanded="true" {% endif %}>{{ node.title }}<i
+                                                    class="fa fa-angle-right"></i></a>
+
+
+                                            {% if not node.is_leaf_node %}
+                                                <ul class="list-links">
+                                                   <li><h5 href="#">{{ children }}</h5></ul> </li>
+                                            {% endif %}
+                                        </li>
+                                    {% endrecursetree %}
+                                </ul>
+
+
+                            </div>
+
+
+
+
+
+
+
+
+                        <li class="nav-item"><a class="nav-link " href="menu.html">Resturants</a></li>
+
+                        <li class="nav-item"><a class="nav-link " href="/about">AboutUs</a></li>
+
+                        <li class="nav-item"><a class="nav-link " href="/contact">Contact</a></li>
+
+                        <li class="nav-item"><a class="nav-link " href="/shopcart/">ShopCart</a></li>
+
+
+
+                        {% if user.id is not None %}
+                            <a class="" role="button" data-toggle="dropdown" aria-expanded="true">
+
+
+
+
+                                </a>
+                            </a>
+
+
+
+
+
+                            <li class="nav-item dropdown">
+
+                                  <ul class="custom-menu">
+
+                            <a class="nav-link  " href="#" id="dropdown-a" data-toggle="dropdown"><strong class="text-uppercase">{{ user.first_name }}<img src="{{ request.session.userimage }}" style="height: 30px; border-radius: 30%"><i class="fa fa-caret-down"></i></strong></a>
+                            <img src="{{ request.session.Userimage }}" style="height: 30px; border-radius: 30%" alt=""/>
+                            <div class="dropdown-menu  text-black-50" aria-labelledby="dropdown-a">
+
+
+                            <li><a href="/user/"><i class="fa fa-user-o "></i> My Account</a></li>
+                            <li><a href="/favorite"><i class="fa fa-heart-o "></i> My Wishlist</a></li>
+                            <li><a href="/user/orders"><i class="fa fa-exchange "></i> orders</a></li>
+                            <li><a href="/user/comments"><i class="fa fa-check "></i>comments</a></li>
+                            <li><a href="/logout/"><i class="fa fa-unlock-alt "></i> Logout</a></li>
+
+                            </li>
+                            </div>
+                        {% else %}
+                            <a href="/login" class="text-uppercase">Login</a> /
+                            <a href="/signup" class="text-uppercase">Sign Up</a>
+                        {% endif %}
+                        </ul>
+                        </div>
+                        </li>
+
+
+                    </ul>
+
+
+        </nav>
+    </header>
+{% endblock %}

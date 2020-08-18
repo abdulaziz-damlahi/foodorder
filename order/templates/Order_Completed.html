@@ -1,0 +1,58 @@
+{% extends 'homebase.html' %}
+{% load static %}
+{% load mptt_tags %}
+{% block header %}{% include "header.html" %}{% endblock %}
+
+
+    {% block title %} ORDER COMPLETED-{{ setting.title }} {% endblock %}
+    {% block keywords %}  {{ setting.keywords }} {% endblock %}
+    {% block description %}  {{ setting.description }} {% endblock %}
+    <!-- Start header -->
+
+{% block content %}
+
+    <!-- BREADCRUMB -->
+	<div class="all-page-title page-breadcrumb">
+		<div class="container text-center">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1>ORDER COMPLETED</h1>
+				</div>
+			</div>
+		</div>
+	</div>>
+    <!-- /BREADCRUMB -->
+    <!-- section -->
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="order-summary clearfix">
+                        <div class="section-title">
+                            <h3 class="title">Order Complated</h3>
+                        </div>
+                        <hr>
+                        <h2>Dear  {{ user.first_name }} {{  user.last_name }}</h2>
+                        <hr>
+                        <h3>Your order is completed</h3>
+                        <h3>Order Code : {{ ordercode }}</h3>
+                        <h3>wish you liked the meal</h3>
+                        <hr>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /section -->
+
+{% endblock %}
+{% block footer %}{% include "footer.html" %}{% endblock %}

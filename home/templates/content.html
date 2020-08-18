@@ -1,0 +1,103 @@
+{% load static %}
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+    <!-- Bootstrap CSS -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+	<!-- Site CSS -->
+<link rel="stylesheet" href="css/style.css">
+    <!-- Responsive CSS -->
+<link rel="stylesheet" href="css/responsive.css">
+    <!-- Custom CSS -->
+<link rel="stylesheet" href="css/custom.css">
+<!-- section -->
+
+<div class="menu-box">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- section title -->
+            <div class="col-md-12">
+                <div class="heading-title text-center">
+                    <h2 class="title">Latest Products</h2>
+                </div>
+            </div>
+            <!-- section title -->
+            {% for rs in products_newist %}
+                <!-- Product Single -->
+                <div class="col-md-3 col-md-3 col-xs-6">
+                    <div class="product product-single">
+                        <div class="product-thumb">
+                            
+
+                            <img src="{{ rs.image.url }}" class="img-fluid" alt="" style="height: 200px">
+                        </div>
+                        <div class="product-body">
+
+                            <div class="product-rating">
+
+                            </div>
+                            <h2 class="product-name"><a href="/product/{{ rs.id }}/{{ rs.slug }}">{{ rs.title }}</a></h2>
+                             <h5 class="product-price">{{ rs.resturant}}</h5>
+                                 <h3 class="product-price">{{ rs.price}} ₺</h3>
+
+                            <div class="product-btns">
+                                    <a href="/order/addtoshopcart/{{ rs.id }}" class="bcart-btn add-to-cart"></i>Bring Me</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Product Single -->
+            {% endfor %}
+
+        </div>
+        <!-- /row -->
+
+
+        <!-- row -->
+        <div class="row">
+            <!-- section title -->
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h2 class="title">best meals</h2>
+                </div>
+            </div>
+            <!-- section title -->
+
+            <!-- section title -->
+            {% for rs in products_pick %}
+                <!-- Product Single -->
+                <div class="col-md-3 col-sm-6 col-xs-6">
+                    <div class="product product-single">
+                        <div class="product-thumb">
+
+                            <img src="{{ rs.image.url }}" class="img-fluid"  alt="" style="height: 200px">
+                        </div>
+                        <div class="product-body">
+
+                            <div class="product-rating">
+                            </div>
+                            <h2 class="section"><a href="/product/{{ rs.id }}/{{ rs.slug }}">{{ rs.title }}</a></h2>
+                             <h5 class="product-price">{{ rs.resturant}}</h5>
+                                            <h3 class="product-price">{{ rs.price }} ₺</h3>
+                            <div class="product-btns">
+
+                                    <a href="/order/addtoshopcart/{{ rs.id }}" class="bcart-btn add-to-cart"></i>Bring Me</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Product Single -->
+            {% endfor %}
+
+
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+</div>
+<!-- /section -->
